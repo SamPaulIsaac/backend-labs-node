@@ -1,0 +1,38 @@
+Auth Test Commands
+
+1. Register a new user
+curl -X POST http://localhost:3000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username": "john", "password": "secret123"}'
+
+2. Login and get JWT token
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "john", "password": "secret123"}'
+
+3. Create a new student
+curl -X POST http://localhost:3000/students \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer yJhbGciOiJIUzI1NdsfsfsdfiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJqb2huIiwiaWF0IjoxNzU0NTk4NTI4LCJleHAiOjE3NTQ2MDIxMjh9.KKy2ArELvCr1NPxxhA2y9Sm1AHypUDc2gq9kYc7qAAM" \
+  -d '{"name": "Alice", "email": "alicdsfe@example.com", "course": "Physics"}'
+
+4. Get all students
+curl http://localhost:3000/students \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+
+5. Get student by ID
+curl http://localhost:3000/students/1 \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+
+6. Update student by ID
+curl -X PUT http://localhost:3000/students/1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{"name": "Alice Updated", "email": "alice.updated@example.com", "course": "Chemistry"}'
+
+7. Delete student by ID
+curl -X DELETE http://localhost:3000/students/1 \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+
+
+
