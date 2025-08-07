@@ -3,6 +3,8 @@ const express = require("express");
 const studentRoutes = require("./routes/studentRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 const logger = require("./utils/logger");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpecs = require("./swagger");
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use((req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   next();
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Routes
 app.use("/students", studentRoutes);
