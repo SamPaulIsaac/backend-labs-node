@@ -1,5 +1,5 @@
 
-# Vanilla Node API (JSON-based persistence)
+# Vanilla Node (JSON-based persistence)
 
 This is a simple RESTful API built using raw **Node.js**, using local JSON files for data persistence.
 
