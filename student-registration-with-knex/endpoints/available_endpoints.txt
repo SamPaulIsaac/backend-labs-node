@@ -1,0 +1,18 @@
+# Create a new student
+curl -X POST http://localhost:3000/students \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Alice", "email": "alice@example.com", "course": "Physics"}'
+
+# Get all students
+curl http://localhost:3000/students
+
+# Get student by ID (replace 1 with actual ID)
+curl http://localhost:3000/students/1
+
+# Update a student (replace 1 with actual ID)
+curl -X PUT http://localhost:3000/students/5 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Alice Updated", "email": "alice.updated@example.com", "course": "Chemistry"}'
+
+# Delete a student (replace 1 with actual ID)
+curl -X DELETE http://localhost:3000/students/1
