@@ -44,15 +44,66 @@ nodemon server.js
 ```
 ## Routes
 
-| Method | Endpoint     | Description       |
-| ------ | ------------ | ----------------- |
-| GET    | `/users`     | Get all users     |
-| GET    | `/users/:id` | Get user by ID    |
-| POST   | `/users`     | Create a new user |
-| PUT    | `/users/:id` | Update user by ID |
-| DELETE | `/users/:id` | Delete user by ID |
+| Method | Endpoint        | Description          |
+| ------ | --------------- | -------------------- |
+| GET    | `/students`     | Get all students     |
+| GET    | `/students/:id` | Get student by ID    |
+| POST   | `/students`     | Create a new student |
+| PUT    | `/students/:id` | Update student by ID |
+| DELETE | `/students/:id` | Delete student by ID |
+
+
+## 🧪 Integration Testing
+ - Integration testing is powered by Jest and Supertest.
+ - Test Location: All integration test files are placed under the /tests directory and follow .test.js naming convention.
+
+### How It Works
+ - Supertest simulates HTTP requests to your Express server.
+ - Tests verify HTTP status codes, response payloads, and behavior.
+ - Can be run in isolation with a dedicated test DB if desired.
+   
+### Run Tests
+```bash
+npm test
+```
+This runs all Jest test cases. Be sure to restart the server if adding new routes or handlers during test development.
+
+## 📘 API Documentation (Swagger)
+The project includes interactive API documentation using Swagger via:
+
+- swagger-jsdoc
+- swagger-ui-express
+
+Access the Docs
+Once the server is running, visit:
+```bash
+http://localhost:3000/api-docs
+```
+
+### Documentation Format
+Swagger reads OpenAPI-compliant comments defined above each route in:
+
+```bash
+src/routes/studentRoutes.js
+```
+
+Example annotation:
+```js
+/**
+ * @swagger
+ * /students:
+ *   get:
+ *     summary: Retrieve all students
+ *     responses:
+ *       200:
+ *         description: A list of students
+ */
+```
+You can test endpoints directly from the Swagger UI interface and view example inputs/outputs.
 
 ## Notes
  - Knex handles connection pooling automatically.
  - All responses are normalized via utils/sendResponse.js.
  - Migrations ensure table structure consistency across environments.
+ - Swagger documentation makes the API self-descriptive and easy to consume.
+ - Integration tests help ensure your endpoints remain functional as you scale or refactor.
