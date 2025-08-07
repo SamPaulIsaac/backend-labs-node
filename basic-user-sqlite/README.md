@@ -1,4 +1,4 @@
-# Basic User API (SQLite)
+# Basic User SQLite
 
 This is a basic RESTful API for managing users using **Node.js** and **SQLite**.
 
