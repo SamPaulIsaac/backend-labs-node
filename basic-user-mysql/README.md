@@ -1,4 +1,4 @@
-# Basic User API (MySQL)
+# Basic User MySQL
 
 This is a simple RESTful API for user management built using **Node.js** and **MySQL**.
 
