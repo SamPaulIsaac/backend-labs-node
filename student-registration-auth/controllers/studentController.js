@@ -1,3 +1,4 @@
+// controllers/studentController.js
 const studentModel = require("../models/studentModel");
 const sendResponse = require("../utils/sendResponse");
 const EntityNotFoundError = require("../utils/EntityNotFoundError");
@@ -30,20 +31,21 @@ exports.create = async (req, res, next) => {
   try {
     const { name, email, course } = req.body;
 
-    if (!name || !email || !course) {
+    if (!name?.trim() || !email?.trim() || !course?.trim()) {
       throw new ValidationError("All fields are required");
     }
 
-    const existing = await studentModel.getStudentByEmail(email);
+    const existing = await studentModel.getStudentByEmail(email.trim());
     if (existing) {
       throw new ValidationError("Student with this email already exists");
     }
 
     const newStudent = await studentModel.createStudent({
-      name,
-      email,
-      course,
+      name: name.trim(),
+      email: email.trim(),
+      course: course.trim(),
     });
+
     sendResponse(res, 201, "Student created", newStudent);
   } catch (err) {
     next(err);
@@ -54,21 +56,27 @@ exports.update = async (req, res, next) => {
   try {
     const { name, email, course } = req.body;
 
-    if (!name || !email || !course) {
+    if (!name?.trim() || !email?.trim() || !course?.trim()) {
       throw new ValidationError("All fields are required");
     }
 
-    const existing = await studentModel.getStudentById(req.params.id);
-    if (!existing) {
+    const existingStudent = await studentModel.getStudentById(req.params.id);
+    if (!existingStudent) {
       throw new EntityNotFoundError(
         `Student not found for ID: ${req.params.id}`
       );
     }
 
+    // Check email uniqueness excluding current student
+    const emailOwner = await studentModel.getStudentByEmail(email.trim());
+    if (emailOwner && emailOwner.id !== Number(req.params.id)) {
+      throw new ValidationError("Email is already in use by another student");
+    }
+
     const updatedStudent = await studentModel.updateStudent(req.params.id, {
-      name,
-      email,
-      course,
+      name: name.trim(),
+      email: email.trim(),
+      course: course.trim(),
     });
 
     sendResponse(res, 200, "Student updated", updatedStudent);
